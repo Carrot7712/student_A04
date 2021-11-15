@@ -134,19 +134,16 @@ const userController = {
       })
   },
   removeLike: (req, res) => {
-    return Like.findOne({
+    return Like.destroy({
       where: {
         UserId: helpers.getUser(req).id,
         RestaurantId: req.params.restaurantId
       }
     })
-      .then(like => {
-        like.destroy()
-          .then(() => {
+    .then(() => {
             req.flash('success_messages', '已移除讚')
             return res.redirect('back')
           })
-      })
   }
 }
 
